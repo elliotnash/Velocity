@@ -97,6 +97,7 @@ public class ConnectedPlayer implements MinecraftConnectionAssociation, Player {
   private final MinecraftConnection connection;
   private final @Nullable InetSocketAddress virtualHost;
   private GameProfile profile;
+  private Component displayNameComponent;
   private PermissionFunction permissionFunction;
   private int tryIndex = 0;
   private long ping = -1;
@@ -118,6 +119,7 @@ public class ConnectedPlayer implements MinecraftConnectionAssociation, Player {
       @Nullable InetSocketAddress virtualHost, boolean onlineMode) {
     this.server = server;
     this.profile = profile;
+    this.displayNameComponent = Component.text(profile.getName());
     this.connection = connection;
     this.virtualHost = virtualHost;
     this.permissionFunction = PermissionFunction.ALWAYS_UNDEFINED;
@@ -140,6 +142,16 @@ public class ConnectedPlayer implements MinecraftConnectionAssociation, Player {
   @Override
   public String getUsername() {
     return profile.getName();
+  }
+
+  @Override
+  public void setDisplayNameComponent(Component displayNameComponent) {
+    this.displayNameComponent = displayNameComponent;
+  }
+
+  @Override
+  public Component getDisplayNameComponent() {
+    return displayNameComponent;
   }
 
   @Override
